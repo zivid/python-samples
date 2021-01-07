@@ -109,10 +109,10 @@ def _main():
     calibration_result = _perform_calibration(hand_eye_input)
     code.interact(local=locals())
     if calibration_result.valid():
-        print("Eye-to-Hand calibration OK")
+        print("Hand-eye calibration OK")
         print(f"Result:\n{calibration_result}")
     else:
-        print("Eye-to-Hand calibration FAILED")
+        print("Hand-eye calibration FAILED")
 
 
 if __name__ == "__main__":
