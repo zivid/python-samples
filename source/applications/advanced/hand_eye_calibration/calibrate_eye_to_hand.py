@@ -49,6 +49,27 @@ def _enter_robot_pose(index):
     return robot_pose
 
 
+def _perform_calibration(hand_eye_input):
+    """Calibration type user input.
+
+    Args:
+        calibration_type: Type of calibration, eth (for eye-to-hand) or eih (for eye-in-hand)
+
+    Returns:
+        hand_eye_output: Calibration result
+
+    """
+    while True:
+        calibration_type = input("Enter type of calibration, eth (for eye-to-hand) or eih (for eye-in-hand):").strip()
+        if calibration_type.lower() == "eth":
+            print("Performing eye-to-hand calibration")
+            return zivid.calibration.calibrate_eye_to_hand(hand_eye_input)
+        if calibration_type.lower() == "eih":
+            print("Performing eye-in-hand calibration")
+            return zivid.calibration.calibrate_eye_in_hand(hand_eye_input)
+        print("Entered unknown method")
+
+
 def _main():
     app = zivid.Application()
 
@@ -56,7 +77,7 @@ def _main():
     camera = app.connect_camera()
 
     current_pose_id = 0
-    calibration_inputs = list()
+    hand_eye_input = list()
     calibrate = False
 
     while not calibrate:
@@ -72,7 +93,7 @@ def _main():
 
                 if detection_result:
                     print("OK")
-                    calibration_inputs.append(zivid.calibration.HandEyeInput(robot_pose, detection_result))
+                    hand_eye_input.append(zivid.calibration.HandEyeInput(robot_pose, detection_result))
                     current_pose_id += 1
                 else:
                     print("FAILED")
@@ -83,10 +104,9 @@ def _main():
         else:
             print(f"Unknown command '{command}'")
 
-    print("Performing Eye-to-Hand calibration")
-    calibration_result = zivid.calibration.calibrate_eye_to_hand(calibration_inputs)
+    calibration_result = _perform_calibration(hand_eye_input)
     code.interact(local=locals())
-    if calibration_result:
+    if calibration_result.valid():
         print("Eye-to-Hand calibration OK")
         print(f"Result:\n{calibration_result}")
     else:
