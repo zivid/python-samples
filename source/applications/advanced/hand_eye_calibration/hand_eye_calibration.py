@@ -50,13 +50,13 @@ def _enter_robot_pose(index):
 
 
 def _perform_calibration(hand_eye_input):
-    """Calibration type user input.
+    """Hand-Eye calibration type user input.
 
     Args:
-        calibration_type: Type of calibration, eth (for eye-to-hand) or eih (for eye-in-hand)
+        hand_eye_input: Hand-Eye calibration input
 
     Returns:
-        hand_eye_output: Calibration result
+        hand_eye_output: Hand-Eye calibration result
 
     """
     while True:
