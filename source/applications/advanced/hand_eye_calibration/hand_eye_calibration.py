@@ -63,10 +63,12 @@ def _perform_calibration(hand_eye_input):
         calibration_type = input("Enter type of calibration, eth (for eye-to-hand) or eih (for eye-in-hand):").strip()
         if calibration_type.lower() == "eth":
             print("Performing eye-to-hand calibration")
-            return zivid.calibration.calibrate_eye_to_hand(hand_eye_input)
+            hand_eye_output = zivid.calibration.calibrate_eye_to_hand(hand_eye_input)
+            return hand_eye_output
         if calibration_type.lower() == "eih":
             print("Performing eye-in-hand calibration")
-            return zivid.calibration.calibrate_eye_in_hand(hand_eye_input)
+            hand_eye_output = zivid.calibration.calibrate_eye_in_hand(hand_eye_input)
+            return hand_eye_output
         print("Entered unknown method")
 
 
