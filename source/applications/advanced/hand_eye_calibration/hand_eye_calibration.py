@@ -69,7 +69,7 @@ def _perform_calibration(hand_eye_input):
             print("Performing eye-in-hand calibration")
             hand_eye_output = zivid.calibration.calibrate_eye_in_hand(hand_eye_input)
             return hand_eye_output
-        print("Entered unknown method")
+        print(f"Unknown calibration type: '{calibration_type}'")
 
 
 def _main():
